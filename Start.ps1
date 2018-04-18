@@ -24,15 +24,19 @@ While($true)
 {
     if (Test-Path x:\script.bat) 
     {  
-    Write-Host "LANCEMENT DE DU SCRIPT" -ForegroundColor Green
+    Write-Host "LANCEMENT DU SCRIPT" -ForegroundColor Green
     break
     }
 
     else 
     {
+
     $url = "http://ipxe.technocite.lan/javascripts/ipxe.php?code=1"
     $output = "x:\script.bat"
+
+    $wc = New-Object System.Net.WebClient
     $wc.DownloadFile($url, $output)
+
     }
 }
 
