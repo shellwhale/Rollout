@@ -15,6 +15,9 @@ Write-Host "Ajout du fichier StartNet.cmd"  -ForegroundColor Yellow
 rm C:\amd64\mount\Windows\System32\StartNet.cmd
 copy C:\Users\Simon\Desktop\Rollout\StartNet.cmd C:\amd64\mount\Windows\System32\
 
+Write-Host "Ajout du fichier Start.ps1"  -ForegroundColor Yellow
+copy C:\Users\Simon\Desktop\Rollout\Start.ps1 C:\amd64\mount\Windows\System32\
+
 Write-Host "Ajout des packages"  -ForegroundColor Yellow
 
 Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-WMI.cab"
