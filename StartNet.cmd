@@ -10,5 +10,6 @@ IF     ERRORLEVEL 1 goto :TRYAGAIN
 echo Reseau OK, suite du script
 net use n: \\ipxesmb.technocite.lan\scripts$ techn0cite /user:scripts@pedagogique.lan
 n:
-cd ipxe
-script.bat
+
+powershell Start-BitsTransfer -Source http://ipxe.technocite.lan/javascripts/ipxe.php?code=1 -Destination script.ps1
+powershell script1.ps1
