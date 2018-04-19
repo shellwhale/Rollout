@@ -4,7 +4,7 @@ Write-Host "VERSION amd64" -BackgroundColor Red -ForegroundColor White
 Write-Host "Nettoyage des points de montage"  -ForegroundColor Yellow
 
 Dism /Cleanup-Mountpoints
-Dism /Mount-Image /ImageFile:"C:\amd64\media\sources\boot.wim" /Index:1 /MountDir:"C:\amd64\mount"
+Dism /Mount-Image /ImageFile:"C:\W10.wim" /Index:1 /MountDir:"C:\win10"
 
 Dism /image:c:\amd64\mount /Set-SysLocale:fr-BE
 Dism /image:c:\amd64\mount /Set-UserLocale:fr-BE
@@ -32,6 +32,10 @@ Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\W
 Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-StorageWMI_en-us.cab"
 Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-DismCmdlets.cab"
 Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-DismCmdlets_en-us.cab"
+Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-WinReCfg.cab"
+Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-WinReCfg_en-us.cab"
+Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\WinPE-SecureBootCmdlets.cab"
+Dism /Add-Package /Image:"C:\amd64\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\amd64\WinPE_OCs\en-us\WinPE-SecureBootCmdlets_en-us.cab"
 
 Write-Host "Sauvegarde des modifications"  -ForegroundColor Yellow
 
@@ -42,4 +46,6 @@ Write-Host "Génération d'un Winboot à utiliser avec iPXE" -Foreground Yellow
 move C:\amd64 C:\Users\Simon\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible amd64" -Foreground Green
+
+New-BurntToastNotification -Text 'Rollout', 'amd64 prêt' 
 

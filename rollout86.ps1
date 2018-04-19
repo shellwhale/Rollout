@@ -32,6 +32,10 @@ Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Win
 Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\en-us\WinPE-StorageWMI_en-us.cab"
 Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\WinPE-DismCmdlets.cab"
 Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\en-us\WinPE-DismCmdlets_en-us.cab"
+Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\WinPE-WinReCfg.cab"
+Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\en-us\WinPE-WinReCfg_en-us.cab"
+Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\WinPE-SecureBootCmdlets.cab"
+Dism /Add-Package /Image:"C:\x86\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\x86\WinPE_OCs\en-us\WinPE-SecureBootCmdlets_en-us.cab"
 
 Write-Host "Sauvegarde des modifications"  -ForegroundColor Yellow
 
@@ -43,3 +47,4 @@ move C:\x86 C:\Users\Simon\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible x86" -Foreground Green
 
+New-BurntToastNotification -Text 'Rollout', 'x86 prêt' 
