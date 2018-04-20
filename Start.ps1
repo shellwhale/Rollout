@@ -1,44 +1,16 @@
-Write-Host "TEST DE LA CONNEXION RESEAU ..." -ForegroundColor Yellow 
+Write-Host "<Montage du lecteur N:>" -BackgroundColor Magenta
+net use n: \\ipxesmb.technocite.lan\scripts$ techn0cite /user:scripts@pedagogique.lan # à remplacer avec Powershell et catch l'erreur
+Write-Host  "Paré à bosser ! Exécution du fichier N:\IPXE\Ready.ps1" 
 
 while($true)
 {
-    If (Test-Connection ipxe.technocite.lan -Count 1) {Write-Host "RESEAU OK" -BackgroundColor Green -ForegroundColor Darkblue; break} 
-
-    Else {Write-Host "PAS DE RESEAU - NOUVELLE TENTATIVE ..." -BackgroundColor Red -ForegroundColor White; Start-Sleep -Seconds 1}
-}
-
-
-Write-Host 
-net use n: \\ipxesmb.technocite.lan\scripts$ techn0cite /user:scripts@pedagogique.lan
-
-Set-Location n:\ipxe\
-New-Item -Path "x:\scripts" -ItemType Directory
-Copy-Item *.ps1 x:\scripts\ 
-
-Start-Process n:\ipxe\VNC\winvnc.exe
-Start-Process "x:\scripts\capture.ps1" -WindowStyle Minimized
-
-Write-Host "DOWNLOAD DU SCRIPT A LANCER ..." -ForegroundColor Yellow 
-
-While($true)
-{
-    if (Test-Path x:\script.bat) 
-    {  
-    Write-Host "LANCEMENT DU SCRIPT" -ForegroundColor Green
-    break
-    }
-
-    else 
+    try { N:\IPXE\Ready.ps1 ; break}
+    catch 
     {
-
-    $url = "http://ipxe.technocite.lan/javascripts/ipxe.php?code=1"
-    $output = "x:\script.bat"
-
-    $wc = New-Object System.Net.WebClient
-    $wc.DownloadFile($url, $output)
-
+        Write-Host "Impossible d'exécuter le fichier Ready.ps1, il est là au moins ?"
+        Write-Host "<Nouvelle tentative>" -BackgroundColor Red
+        Start-Sleep -s 1
     }
 }
 
-Start-Process x:\script.bat
 

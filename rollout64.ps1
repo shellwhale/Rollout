@@ -4,7 +4,7 @@ Write-Host "VERSION amd64" -BackgroundColor Red -ForegroundColor White
 Write-Host "Nettoyage des points de montage"  -ForegroundColor Yellow
 
 Dism /Cleanup-Mountpoints
-Dism /Mount-Image /ImageFile:"C:\W10.wim" /Index:1 /MountDir:"C:\win10"
+Dism /Mount-Image /ImageFile:"C:\amd64\media\sources\boot.wim" /Index:1 /MountDir:"C:\amd64\mount"
 
 Dism /image:c:\amd64\mount /Set-SysLocale:fr-BE
 Dism /image:c:\amd64\mount /Set-UserLocale:fr-BE
@@ -47,5 +47,5 @@ move C:\amd64 C:\Users\Simon\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible amd64" -Foreground Green
 
-New-BurntToastNotification -Text 'Rollout', 'amd64 prêt' 
+New-BurntToastNotification -Text 'Rollout', 'amd64 fini ! Terrible !' 
 

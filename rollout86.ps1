@@ -47,4 +47,4 @@ move C:\x86 C:\Users\Simon\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible x86" -Foreground Green
 
-New-BurntToastNotification -Text 'Rollout', 'x86 prêt' 
+New-BurntToastNotification -Text 'Rollout', 'x86 fini ! Terrible ! ' 
