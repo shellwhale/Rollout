@@ -43,7 +43,7 @@ Dism /Unmount-Image /MountDir:C:\amd64\mount /Commit
 
 Write-Host "Génération d'un Winboot à utiliser avec iPXE" -Foreground Yellow
 
-move C:\amd64 C:\Users\$env:USERNAME\Desktop\Rollout\Winbox
+Move-Item C:\amd64 C:\Users\$env:USERNAME\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible amd64" -Foreground Green
 

@@ -1,4 +1,4 @@
-# copype x86 C:\x86
+# Copy-Itempe x86 C:\x86
 
 Write-Host "VERSION x86" -BackgroundColor Red -ForegroundColor White
 Write-Host "Nettoyage des points de montage"  -ForegroundColor Yellow
@@ -13,10 +13,10 @@ Dism /image:c:\x86\mount /Set-InputLocale:fr-BE
 Write-Host "Ajout du fichier StartNet.cmd"  -ForegroundColor Yellow
 
 rm C:\x86\mount\Windows\System32\StartNet.cmd
-copy C:\Users\$env:USERNAME\Desktop\Rollout\StartNet.cmd C:\x86\mount\Windows\System32\
+Copy-Item C:\Users\$env:USERNAME\Desktop\Rollout\StartNet.cmd C:\x86\mount\Windows\System32\
 
 Write-Host "Ajout du fichier Start.ps1"  -ForegroundColor Yellow
-copy C:\Users\$env:USERNAME\Desktop\Rollout\Start.ps1 C:\amd64\mount\Windows\System32\
+Copy-Item C:\Users\$env:USERNAME\Desktop\Rollout\Start.ps1 C:\amd64\mount\Windows\System32\
 
 Write-Host "Ajout des packages"  -ForegroundColor Yellow
 
@@ -43,7 +43,7 @@ Dism /Unmount-Image /MountDir:C:\x86\mount /Commit
 
 Write-Host "Génération d'un Winboot à utiliser avec iPXE" -Foreground Yellow
 
-move C:\x86 C:\Users\$env:USERNAME\Desktop\Rollout\Winbox
+Move-Item C:\x86 C:\Users\$env:USERNAME\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible x86" -Foreground Green
 
