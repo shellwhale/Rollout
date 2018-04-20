@@ -13,10 +13,10 @@ Dism /image:c:\x86\mount /Set-InputLocale:fr-BE
 Write-Host "Ajout du fichier StartNet.cmd"  -ForegroundColor Yellow
 
 rm C:\x86\mount\Windows\System32\StartNet.cmd
-copy C:\Users\Simon\Desktop\Rollout\StartNet.cmd C:\x86\mount\Windows\System32\
+copy C:\Users\$env:USERNAME\Desktop\Rollout\StartNet.cmd C:\x86\mount\Windows\System32\
 
 Write-Host "Ajout du fichier Start.ps1"  -ForegroundColor Yellow
-copy C:\Users\Simon\Desktop\Rollout\Start.ps1 C:\amd64\mount\Windows\System32\
+copy C:\Users\$env:USERNAME\Desktop\Rollout\Start.ps1 C:\amd64\mount\Windows\System32\
 
 Write-Host "Ajout des packages"  -ForegroundColor Yellow
 
@@ -43,7 +43,7 @@ Dism /Unmount-Image /MountDir:C:\x86\mount /Commit
 
 Write-Host "Génération d'un Winboot à utiliser avec iPXE" -Foreground Yellow
 
-move C:\x86 C:\Users\Simon\Desktop\Rollout\Winbox
+move C:\x86 C:\Users\$env:USERNAME\Desktop\Rollout\Winbox
 
 Write-Host "Winbox disponible x86" -Foreground Green
 
