@@ -43,8 +43,8 @@ While($true)
 {
     If (Test-Path X:\deployement.bat) 
     {  
-        Write-Host "<Déplacement vers N:\IPXE>" -ForegroundColor Green
-	    Write-Host "<Exécution de X:\deployement.bat>" -ForegroundColor Green
+        Write-Host "<Déplacement vers N:\IPXE>" -BackgroundColor Green
+	    Write-Host "<Exécution de X:\deployement.bat>" -BackgroundColor Green
 	    Set-Location N:\IPXE
         Start-Process X:\deployement.bat
         break

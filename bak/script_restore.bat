@@ -1,0 +1,1 @@
+Scripts\restore.bat %1
