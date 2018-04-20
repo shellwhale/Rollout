@@ -1,0 +1,9 @@
+#!ipxe
+
+echo Lancement de Winbox
+cpuid --ext 29 && set arch amd64 || set arch x86
+kernel winpetests/winbox/wimboot gui
+initrd winpetests/winbox/${arch}/media/Boot/BCD                     BCD
+initrd winpetests/winbox/${arch}/media/Boot/boot.sdi                boot.sdi
+initrd winpetests/winbox/${arch}/media/sources/boot.wim             boot.wim
+boot

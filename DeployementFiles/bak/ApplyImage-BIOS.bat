@@ -18,7 +18,7 @@ IF NOT EXIST %1.torrent GOTO CopyWim
 
 REM Ancienne commande de copie
 REM esentutl /y "%1" /d "R:\RecoveryImage\Install.wim" /o
-copy aria2c.exe x:\
+copy aria2c.exe X:\
 x:\aria2c "%1.torrent" -c --dir="R:\RecoveryImage" --bt-tracker-interval=60 --seed-ratio=1.0 --seed-time=5 --file-allocation=none
 
 REM Aria2C ne tient pas compte de --out pour les torrents, on renomme à la main au bout de trente secondes...

@@ -8,7 +8,6 @@ Start-Sleep -Seconds 30
 Rename-Item R:\RecoveryImage\*.wim Install.wim
 
 dism /Apply-Image /ImageFile:"R:\RecoveryImage\Install.wim" /Index:1 /ApplyDir:W:\
-IF     ERRORLEVEL 1 pause
 
 Write-Host "Exécution de bcdboot" -BackgroundColor Magenta
 W:\Windows\System32\bcdboot.exe W:\Windows
