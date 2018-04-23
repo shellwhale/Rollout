@@ -84,7 +84,7 @@ If ($folder -ne $null)
     Set-Location $folder
     $folder = $PWD # New-BurntToastNotification ne prends que les chemins absolus
 }
-Else
+else
 {
     Write-Host "Winbox disponible !"
     $folder = "$PWD\Winbox" # New-BurntToastNotification ne prends que les chemins absolus
