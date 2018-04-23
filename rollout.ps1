@@ -79,7 +79,8 @@ Move-Item C:\$Arch .\Winbox\
 # Envoi de la Winbox vers le fichier de destination
 If ($folder -ne $null) 
 { 
-    Copy-Item Winbox $folder
+    Copy-Item .\Winbox\* $folder
+    Remove-Item .\Winbox\$arch
     Write-Host "Winbox disponible en $folder !"
     Set-Location $folder
     $folder = $PWD # New-BurntToastNotification ne prends que les chemins absolus
