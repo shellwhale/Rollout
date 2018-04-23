@@ -1,15 +1,14 @@
+# Récupération de l'architecture choisie
+param([string]$arch)
 # Titre de la fenêtre
 $host.ui.RawUI.WindowTitle = "Rollout"
 
-# Récupération de l'architecture choisie
-param([string]$arch)
 # Si elle est autre que amd64 ou x86, arrêt du script
 If (-Not ($arch -contains 'amd64' -Or $arch -contains 'x86'))
 {
-    Write-Host "./rollout.ps1 <amd64/x86>"
+    Write-Host ".\rollout.ps1 <amd64/x86>"
     exit
 }
-
 # Titre de la fenêtre
 $host.ui.RawUI.WindowTitle = "Rollout $arch"
 
