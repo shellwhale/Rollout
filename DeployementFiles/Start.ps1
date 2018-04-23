@@ -12,5 +12,3 @@ while($true)
         Start-Sleep -s 1
     }
 }
-
-

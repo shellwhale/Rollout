@@ -19,11 +19,12 @@ Génération d'images WinPE pour déploiement via iPXE
 
 
 
-## Première étape
+### Startnet.cmd et Start.ps1
 
-Configurer préparer les scripts Startnet.cmd et Start.ps1 dans DeployementFiles
-Par défaut, Startnet.cmd ne fait qu'appel à Start.ps1 après avoir désactiver le firewall
-Libre à vous de modifier Starnet.cmd ou Start.ps1 pour exécuter des scripts au démarrage de WinPE
+Configurer préparer les scripts Startnet.cmd et Start.ps1 dans DeployementFiles.
+Par défaut, Startnet.cmd ne fait qu'appel à Start.ps1 après avoir désactiver le firewall.
+Libre à vous de modifier Starnet.cmd ou Start.ps1 pour exécuter des scripts au démarrage de WinPE.
+
 
 
 
