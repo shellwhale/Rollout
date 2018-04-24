@@ -30,6 +30,6 @@ Libre à vous de modifier Starnet.cmd ou Start.ps1 pour exécuter des scripts au
 
 
 ```
-powershell \rollout.ps1 -Arch <amd64/x86> -Path <directory>
+powershell .\rollout.ps1 -Arch <amd64/x86> -Path <directory>
 ```
 
