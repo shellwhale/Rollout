@@ -3,7 +3,9 @@
 # Récupération de l'architecture et du dossier de destination choisis
 param(
 [string]$Arch,
-[string]$folder
+[string]$folder,
+[string]$EmergencyClean
+
 )
 
 # Récupération de l'emplacement du repo sur la machine locale
@@ -15,6 +17,11 @@ if (-Not ((Get-Item -Path ".\").name -contains 'Rollout' ))
 {
     Write-Host "Ce script doit être lancé depuis le répertoire Rollout"
     exit    
+}
+
+if ($EmergencyClean) {
+    Dism /Unmount-Image /MountDir:$WinboxDirectory\$Arch\mount /Discard
+    dism /cleanup-wim
 }
 
 # Vérification de l'existence du dossier de destination choisi
