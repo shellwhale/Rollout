@@ -1,12 +1,12 @@
-# CrÃ©ation du lecteur rÃ©seau N:\ via \\sv-w2k12-pedah.pedagogique.lan\deploiement$
+# Création du lecteur réseau N:\ via \\sv-w2k12-pedah.pedagogique.lan\deploiement$
 $connected = $false
 while($connected -eq $false)
 {
-    Write-Host "Connexion Ã  \\sv-w2k12-pedah.pedagogique.lan\deploiement$ ..."
+    Write-Host "Connexion à \\sv-w2k12-pedah.pedagogique.lan\deploiement$ ..."
     net use n: \\ipxesmb.technocite.lan\scripts$ techn0cite /user:scripts@pedagogique.lan
     if (Test-Path N:\) 
     {
-        Write-Host "Lecteur N: montÃ©" -ForegroundColor Green
+        Write-Host "Lecteur N: monté" -ForegroundColor Green
         $connected = $true
     }
     else 
@@ -15,7 +15,7 @@ while($connected -eq $false)
     }
 }
 
-# Ã‰xÃ©cution du script N:\IPXE\Ready.ps1
+# Éxécution du script N:\IPXE\Ready.ps1
 while($true) 
 {
     if (Test-Path N:\IPXE\Ready.ps1) {N:\IPXE\Ready.ps1; break}

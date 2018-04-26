@@ -3,9 +3,7 @@
 # Récupération de l'architecture et du dossier de destination choisis
 param(
 [string]$Arch,
-[string]$folder,
-[string]$EmergencyClean
-
+[string]$folder
 )
 
 # Récupération de l'emplacement du repo sur la machine locale
@@ -19,10 +17,6 @@ if (-Not ((Get-Item -Path ".\").name -contains 'Rollout' ))
     exit    
 }
 
-if ($EmergencyClean) {
-    Dism /Unmount-Image /MountDir:$WinboxDirectory\$Arch\mount /Discard
-    dism /cleanup-wim
-}
 
 # Vérification de l'existence du dossier de destination choisi
 if ($folder) 
@@ -63,8 +57,10 @@ Remove-Item $WinboxDirectory\$Arch\mount\Windows\System32\StartNet.cmd
 Copy-Item DeployementFiles\StartNet.cmd $WinboxDirectory\$Arch\mount\Windows\System32\
 Copy-Item DeployementFiles\Start.ps1 $WinboxDirectory\$Arch\mount\Windows\System32\
 
-# Ajout des packages 
+# Ajout des modules
+Copy-Item -Recurse DeployementFiles\Modules\* "$WinboxDirectory\$Arch\mount\Windows\System32\WindowsPowerShell\v1.0\Modules\"
 
+# Ajout des packages 
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-WMI.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\en-us\WinPE-WMI_en-us.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-NetFX.cab"
