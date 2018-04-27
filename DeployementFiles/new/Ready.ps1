@@ -7,7 +7,7 @@ New-Item -Path "X:\scripts" -ItemType Directory
 Copy-Item N:\IPXE\*.ps1 x:\scripts\ 
 Start-Process N:\IPXE\VNC\winvnc.exe
 
-Start-Process powershell.exe -WindowStyle Minimized # Instance temporaire pour des tests ..
+Start-Process powershell.exe  -WindowStyle Minimized # Instance temporaire pour des tests ..
 
 while($true)
 {

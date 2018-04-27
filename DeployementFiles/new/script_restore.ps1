@@ -49,26 +49,33 @@ while($connected -eq $false)
 }
 
 # Préparation des partitions
-$FirmwareType = (Get-FirmwareType).FirmwareType
 
 $file = "Z:\images\$image"
 Write-Host "L'image $file sera utilisée pour le déploiement..."
 $taille=([int](((Get-Item $file).length)/1MB))+500
 cd x:\scripts
-New-Item –name "diskpart.txt" –itemtype file –force | OUT-NULL
 
+New-Item –name "diskpart.txt" –itemtype file –force | Out-Null
+$FirmwareType = (Get-FirmwareType).FirmwareType
 if ($FirmwareType -eq "BIOS")
 {
     Add-Content –path "x:\scripts\diskpart.txt" 'select disk 0
     clean
+    rem == 1. System partition ======================
     create partition primary size=350
     format quick fs=ntfs label="System"
     assign letter="S"
     active
+
+
+
+    rem == 2. Windows partition =====================
     create partition primary'
     Add-Content –path x:\scripts\diskpart.txt  "shrink minimum=$taille"
     Add-Content –path x:\scripts\diskpart.txt 'format quick fs=ntfs label="Windows"
     assign letter="W"
+
+    rem == 3. Recovery tools partition ==============
     create partition primary
     format quick fs=ntfs label="Recovery image"
     assign letter="R"
@@ -80,30 +87,41 @@ if ($FirmwareType -eq "BIOS")
 elseif ($FirmwareType -eq "UEFI") 
 {
     Add-Content –path "x:\scripts\diskpart.txt" 'select disk 0
+    
+    rem == 1. System partition =========================
     clean
     convert gpt
     create partition efi size=350
     format quick fs=fat32 label="System"
     assign letter="S"
+
+
+    rem == 2. Microsoft Reserved (MSR) partition =======
     create partition msr size=16
+
+
+
+    rem == 3. Windows partition ========================
     create partition primary
     ' 
     Add-Content –path x:\scripts\diskpart.txt "shrink minimum=$taille"
     Add-Content –path x:\scripts\diskpart.txt 'format quick fs=ntfs label="Windows"
     assign letter="W"
+
+    rem === 4. Recovery tools partition ================
     create partition primary
-    format quick fs=ntfs label="Recovery image"
+    format quick fs=ntfs label="Recovery tools"
     assign letter="R"
     set id="de94bba4-06d1-4d40-a16a-bfd50179d6ac"
     gpt attributes=0x8000000000000001
     list volume
+    exit
     '
 }
 
 
-diskpart.exe /s x:\scripts\diskpart.txt
+diskpart.exe /s x:\scripts\diskpart.txt 
 md R:\RecoveryImage
-md S:\Recovery\WindowsRE
 
 # Vérification de l'existence de l'image et téléchargement 
 
@@ -129,15 +147,15 @@ else
 
 Rename-Item R:\RecoveryImage\*.wim Install.wim
 
-dism /Apply-Image /ImageFile:"R:\RecoveryImage\Install.wim" /Index:1 /ApplyDir:W:\
+cmd.exe /c call powercfg /s 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
+Dism /Apply-Image /ImageFile:"R:\RecoveryImage\Install.wim" /Index:1 /ApplyDir:W:\
 
 Write-Host "Lancement de bcdboot" -ForegroundColor Green
 W:\Windows\System32\bcdboot.exe W:\Windows
 
-xcopy /h W:\Windows\System32\Recovery\Winre.wim S:\Recovery\WindowsRE\
-
-Write-Host "Lancement de Reagentc.exe /Setreimage" -ForegroundColor Green
-W:\Windows\System32\Reagentc.exe /Setreimage /Path S:\Recovery\WindowsRE /Target W:\Windows
+md R:\Recovery\WindowsRE
+xcopy /h W:\Windows\System32\Recovery\Winre.wim R:\Recovery\WindowsRE\
+W:\Windows\System32\Reagentc.exe /Setreimage /Path R:\Recovery\WindowsRE /Target W:\Windows
 
 Write-Host "Lancement de Reagentc.exe /Setosimage" -ForegroundColor Green
 W:\Windows\System32\Reagentc.exe /Setosimage /Path R:\RecoveryImage /Target W:\Windows /Index 1
