@@ -1,10 +1,17 @@
+# Dépendances pour DellBiosProvider
+# vcredist2010
+# vcredist2012
+# Les installer avec Chocolatey ..
+
 Install-Module -Name GetFirmwareBIOSorUEFI  -Force
 Import-Module GetFirmwareBIOSorUEFI  
 if ((Get-FirmwareType).firmwaretype -eq "UEFI") 
 {
     Install-Module DellBiosProvider -Force;
     Import-Module DellBiosProvider;
-    # Récupération des objets DeviceName, DeviceNumber dans la variable $a
+    # Vérification de l'existance de DellSmbios:\
+    if (-Not(Test-Path DellSmbios:\)) {Write-Host "DellSmbios:\ n'existe pas ! Le BIOS n'est peut être pas à jour ... ?" -Foregroundcolor Red}
+    # Récupération des objets DeviceName, DeviceNumber
     $a = (ls DellSmbios:\BootSequence\).CurrentValue | Select-Object DeviceName,DeviceNumber;
     # Récupération du DeviceNumber qui corresponds à celui du Windows Boot Manager
     $windows = ($a | ? DeviceName -match "Windows Boot Manager");
@@ -20,6 +27,10 @@ if ((Get-FirmwareType).firmwaretype -eq "UEFI")
     # Windows Boot Manager est ajouté en dernier à la séquence
     $sequence = -join($sequence,$windows.DeviceNumber);
     Set-Item DellSmbios:\BootSequence\BootSequence $sequence; 
+}
+else 
+{
+    Write-Host "Système en UEFI, pas de changement de BootSequence nécessaire" -Foregroundcolor Green   
 }
 
 
