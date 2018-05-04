@@ -12,8 +12,9 @@ Génération d'images WinPE
 
 ### Dépendances 
 
-* Windows ADK for Windows 10, version 1703 (10.1.16299.15) ou plus 
+* Windows ADK for Windows 10, version 1703 (10.1.16299.15) ou plus (https://docs.microsoft.com/en-us/windows-hardware/get-started/adk-install)
 * Powershell 5.1.16299.251 ou plus
+* SubInACL (https://www.microsoft.com/en-in/download/confirmation.aspx?id=23510) 
 
 ### Startnet.cmd et Start.ps1
 

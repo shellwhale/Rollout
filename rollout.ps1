@@ -76,6 +76,13 @@ Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-WinReCfg.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\en-us\WinPE-WinReCfg_en-us.cab"
 
+# Changement du fond d'écran
+
+C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg /setowner=$env:USERDOMAIN\$env:USERNAME
+C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\System32\winpe.jpg /grant=$env:USERDOMAIN\$env:USERNAME=F
+Remove-Item $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg -Force
+Copy-Item $RolloutDirectory\winpe.jpg $WinboxDirectory\$Arch\mount\Windows\System32\
+
 # Démontage et sauvegarde de l'image
 Dism /Unmount-Image /MountDir:$WinboxDirectory\$Arch\mount /Commit
 
