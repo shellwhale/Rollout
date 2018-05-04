@@ -27,6 +27,9 @@ if ($folder)
 # Titre de la fenêtre
 $host.ui.RawUI.WindowTitle = "Rollout"
 
+
+
+
 # Si elle est autre que amd64 ou x86, arrêt du script
 If (-Not ($Arch -contains 'amd64' -Or $Arch -contains 'x86'))
 {
@@ -57,10 +60,17 @@ Remove-Item $WinboxDirectory\$Arch\mount\Windows\System32\StartNet.cmd
 Copy-Item DeployementFiles\StartNet.cmd $WinboxDirectory\$Arch\mount\Windows\System32\
 Copy-Item DeployementFiles\Start.ps1 $WinboxDirectory\$Arch\mount\Windows\System32\
 
+# Changement du fond d'écran
+C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg /setowner=$env:USERDOMAIN\$env:USERNAME
+C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg /grant=$env:USERDOMAIN\$env:USERNAME=F
+Remove-Item $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg -Force
+Copy-Item $RolloutDirectory\wallpaper\winpe.jpg $WinboxDirectory\$Arch\mount\Windows\System32\
+
+
 # Ajout des modules
 Copy-Item -Recurse DeployementFiles\Modules\* "$WinboxDirectory\$Arch\mount\Windows\System32\WindowsPowerShell\v1.0\Modules\"
 
-# Ajout des packages 
+# Ajout des packages    
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-WMI.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\en-us\WinPE-WMI_en-us.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-NetFX.cab"
@@ -76,12 +86,6 @@ Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\WinPE-WinReCfg.cab"
 Dism /Add-Package /Image:"$WinboxDirectory\$Arch\mount" /PackagePath:"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Windows Preinstallation Environment\$Arch\WinPE_OCs\en-us\WinPE-WinReCfg_en-us.cab"
 
-# Changement du fond d'écran
-
-C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg /setowner=$env:USERDOMAIN\$env:USERNAME
-C:\"Program Files (x86)"\"Windows Resource Kits"\Tools\subinacl.exe /file $WinboxDirectory\$Arch\mount\System32\winpe.jpg /grant=$env:USERDOMAIN\$env:USERNAME=F
-Remove-Item $WinboxDirectory\$Arch\mount\Windows\System32\winpe.jpg -Force
-Copy-Item $RolloutDirectory\winpe.jpg $WinboxDirectory\$Arch\mount\Windows\System32\
 
 # Démontage et sauvegarde de l'image
 Dism /Unmount-Image /MountDir:$WinboxDirectory\$Arch\mount /Commit
@@ -103,4 +107,4 @@ If ($folder)
 
 $logo = "$PWD\Ressources\logo.jpg"
 $button = New-BTButton -Content 'Terrible' -Arguments "$folder"
-New-BurntToastNotification -Text "Rollout", "Une Winbox $Arch est prête !" -Button $button -AppLogo $logo
+New-BurntToastNotification -Text "Rollout", "Un Windows PE $Arch est prêt !" -Button $button -AppLogo $logo
