@@ -4,7 +4,7 @@ Génération d'images WinPE
 
 ### Fonctionnement
 
-* Une image WinPE est générée via Windows ADK à la racine du disque C: 
+* Une image WinPE est générée via Windows ADK
 * Elle est ensuite montée via Dism
 * Les fichiers Startnet.cmd et Start.ps1 situés dans DeployementFiles y sont copiés
 * Les packages .cab y sont installés
