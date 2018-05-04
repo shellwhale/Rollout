@@ -1,6 +1,6 @@
 # Rollout
 
-Génération d'images WinPE pour déploiement via iPXE 
+Génération d'images WinPE
 
 ### Fonctionnement
 
